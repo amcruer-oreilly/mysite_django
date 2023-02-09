@@ -1,8 +1,5 @@
 # import render shortcut
-from django.shortcuts import render
-
-# import 404 error
-from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 
 # import the Question model from polls/models.py
 from .models import Question
@@ -19,13 +16,9 @@ def index(request):
 
 # add detail, results, and vote views
 def detail(request, question_id):
-    # try to get the question with the given id
-    try:
-        question = Question.objects.get(pk=question_id)
-    # if the question does not exist, raise a 404 error
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
-    # render the detail.html template with the question
+    # get the question object or return a 404 error
+    question = get_object_or_404(Question, pk=question_id)
+    # render the detail.html template with the question object
     return render(request, 'polls/detail.html', {'question': question})
 
 def results(request, question_id):

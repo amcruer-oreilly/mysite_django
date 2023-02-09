@@ -1,2 +1,12 @@
-<!-- put in question tag -->
-{{ question }}  <!-- this is the same as {{ question.question_text }} , I had to type this in manually, first time to happen in project -->
+{# print the question text in a level 1 header, and an unordered list of the choices for the question #}
+
+{# display the question text #}
+<h1>{{ question.question_text }}</h1>   <!-- had to add h1 -->
+
+{# display the choices #}
+<ul>    <!-- had to add ul -->
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul>
+{# display the form #}
